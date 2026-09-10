@@ -1,28 +1,27 @@
-import { useState } from "react"; 
 function TodoList() { 
-  const [todos, setTodos] = useState([
-      { id: 1, task: "Learn React", completed: false }, 
-    { id: 2, task: "Build a project", completed: true }, 
-  ]); 
-  const toggleComplete = (id) => { 
-    setTodos( 
-      todos.map((todo) => 
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo 
-      ) 
-    ); 
+  const [todos, setTodos] = useState([]); 
+  const [input, setInput] = useState(""); 
+  const addTodo = () => {
+        if (input.trim()) { 
+      setTodos([...todos, { id: Date.now(), task: input, completed: false }]); 
+      setInput(""); 
+    } 
   }; 
   return ( 
-    <ul> 
-      {todos.map((todo) => ( 
-        <li 
-          key={todo.id} 
-          style={{ textDecoration: todo.completed ? "line-through" : "none" }} 
-          onClick={() => toggleComplete(todo.id)} 
-        > 
-          {todo.task} 
-        </li> 
-      ))} 
-    </ul> 
+    <div> 
+      <input 
+        type="text" 
+        value={input} 
+        onChange={(e) => setInput(e.target.value)} 
+        placeholder="Add a new task" 
+      /> 
+      <button onClick={addTodo}>Add</button> 
+      <ul> 
+        {todos.map((todo) => ( 
+          <li key={todo.id}>{todo.task}</li> 
+        ))} 
+      </ul> 
+    </div> 
   ); 
 } 
 export default TodoList;
