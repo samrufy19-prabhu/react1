@@ -1,8 +1,9 @@
+import { useState } from "react"; 
 function TodoList() { 
   const [todos, setTodos] = useState([]); 
   const [input, setInput] = useState(""); 
   const addTodo = () => {
-        if (input.trim()) { 
+       if (input.trim()) { 
       setTodos([...todos, { id: Date.now(), task: input, completed: false }]); 
       setInput(""); 
     } 
