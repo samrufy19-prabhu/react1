@@ -1,11 +1,28 @@
-import React from 'react';
-function App() { 
-  const name = "John Doe"; 
+import { useState } from "react"; 
+function TodoList() { 
+  const [todos, setTodos] = useState([
+      { id: 1, task: "Learn React", completed: false }, 
+    { id: 2, task: "Build a project", completed: true }, 
+  ]); 
+  const toggleComplete = (id) => { 
+    setTodos( 
+      todos.map((todo) => 
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo 
+      ) 
+    ); 
+  }; 
   return ( 
-    <div> 
-      <h1>Hello, {name}!</h1>  {/* JSX with dynamic value */} 
-      <p>Today is {new Date().toLocaleDateString()}</p> 
-    </div> 
+    <ul> 
+      {todos.map((todo) => ( 
+        <li 
+          key={todo.id} 
+          style={{ textDecoration: todo.completed ? "line-through" : "none" }} 
+          onClick={() => toggleComplete(todo.id)} 
+        > 
+          {todo.task} 
+        </li> 
+      ))} 
+    </ul> 
   ); 
-}
-export default App;
+} 
+export default TodoList;
